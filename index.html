@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Tracker App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: gold; /* Change all font colors to gold */
+    }
+    header {
+      background-color: transparent;
+      color: gold; /* Change font color to gold */
+      padding: 10px 20px;
+      text-align: center;
+      text-shadow: 2px 2px #000;
+    }
+    header h1 {
+      font-size: 3rem; /* Increase font size of "Casta" */
+      font-family: 'Courier New', Courier, monospace; /* Different font style for "Casta" */
+    }
+    main {
+      padding: 20px;
+    }
+    .tracker {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .tracker h2 {
+      margin-top: 0;
+      color: gold; /* Ensure heading text is gold */
+    }
+    .input-group {
+      margin-bottom: 10px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: gold; /* Ensure labels are gold */
+    }
+    .input-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: gold; /* Change button background to gold */
+      color: black; /* Ensure button text is readable */
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 2px 2px #000;
+    }
+    button:hover {
+      background-color: #ffd700; /* Slightly lighter gold on hover */
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background: #444; /* Dark background for result */
+      border: 1px solid #d4e9d0;
+      color: gold; /* Ensure result text is gold */
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Casta</h1>
+  </header>
+  <main>
+    <div class="tracker">
+      <h2>Track Your Progress</h2>
+      <div class="input-group">
+        <label for="subscribers">Current Subscribers:</label>
+        <input type="number" id="subscribers" placeholder="Enter current subscribers">
+      </div>
+      <div class="input-group">
+        <label for="watchHours">Current Watch Hours:</label>
+        <input type="number" id="watchHours" placeholder="Enter current watch hours">
+      </div>
+      <div class="input-group">
+        <label for="contentCheck">Is your content copied or has duplicate clips?</label>
+        <select id="contentCheck">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <button onclick="checkMonetization()">Check Monetization</button>
+      <div id="result" class="result" style="display:none;"></div>
+    </div>
+  </main>
+  <script>
+    function checkMonetization() {
+      const subscribers = parseInt(document.getElementById('subscribers').value);
+      const watchHours = parseInt(document.getElementById('watchHours').value);
+      const contentCheck = document.getElementById('contentCheck').value;
+
+      const resultDiv = document.getElementById('result');
+      if (isNaN(subscribers) || isNaN(watchHours)) {
+        resultDiv.style.display = 'block';
+        resultDiv.style.color = 'red';
+        resultDiv.textContent = "Please enter valid numbers!";
+        return;
+      }
+
+      if (contentCheck === "yes") {
+        resultDiv.style.display = 'block';
+        resultDiv.style.color = 'red';
+        resultDiv.textContent = "You cannot monetize copied with duplicate content.";
+        return;
+      }
+
+      if (subscribers >= 1000 && watchHours >= 4000) {
+        resultDiv.style.display = 'block';
+        resultDiv.style.color = 'green';
+        resultDiv.textContent = "Congratulations! You meet the monetization requirements!";
+      } else {
+        resultDiv.style.display = 'block';
+        resultDiv.style.color = 'orange';
+        resultDiv.textContent = "Keep going! You need at least 1,000 subscribers and 4,000 watch hours.";
+      }
+    }
+  </script>
+</body>
+</html>
